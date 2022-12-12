@@ -2,7 +2,7 @@ import React from 'react'
 import './Post.css';
 import Avatar from '@mui/material/Avatar';
 
-function Post() {
+function Post({username, caption, imageUrl,alt}) {
   return (
     <div className='post'>
         <div className='post__header'>
@@ -11,12 +11,12 @@ function Post() {
                 alt='Dan Hunter'
                 src='/static/images/avatar/1.jpg'
             />
-            <h3>Username</h3>
+            <h3>{username}</h3>
         </div>
         {/* header -> avatar + username */}
-        <img className='post__image' src='https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80' alt='splash'/>
+        <img className='post__image' src={imageUrl} alt={alt}/>
         {/* image */}
-        <h4 className='post__text'><strong>Dan Hunter</strong> The splash moment</h4>
+        <h4 className='post__text'><strong>{username}</strong>{caption}</h4>
         {/* username + caption */}
     </div>
   )
