@@ -6,6 +6,8 @@ import { collection, onSnapshot } from 'firebase/firestore';
 
 function App() {
   const [posts, setPosts] = useState([]);
+  const [open, setOpen] = useState(false);
+  
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(()=>{
 
@@ -20,6 +22,16 @@ function App() {
 
   return (
     <div className='app'>
+      <form>
+      {/* <Modal
+        open={open}
+        onClose={()=> setOpen(false)}
+      > 
+        <div style={modalStyle} className={classes.paper}>
+          <h2>I am a modal</h2>
+        </div>
+        </Modal> */}
+        </form>
       <div className='app__header'> 
       <img
         className='app__headerImage'
