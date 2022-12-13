@@ -28,8 +28,11 @@ function App() {
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(()=>{
 
-    const unsub = onSnapshot(collection(db,'posts'), (snapshot) => {
-       setPosts(snapshot.docs.map(doc => doc.data()));
+     onSnapshot(collection(db,'posts'), (snapshot) => {
+       setPosts(snapshot.docs.map(doc => ({
+          id: doc.id, 
+          post: doc.data()
+        })));
        })
   },[]);
 
@@ -45,8 +48,8 @@ function App() {
       </div>
       <h1>Hello, let us start to build with React🚀</h1>
       {
-        posts.map(post =>(
-          <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl} alt={post.alt}/>
+        posts.map(({id, post})=>(
+          <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} alt={post.alt}/>
         ))
       }/
       </div>
