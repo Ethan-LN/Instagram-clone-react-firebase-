@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import './App.css';
 import Post from './Post';
+import { db } from './firebase';
+import { collection, onSnapshot } from 'firebase/firestore';
 
 function App() {
   const [posts, setPosts] = useState([
-    {
-      username:'Dan Hunter', 
-      caption:' The splashing moment', 
-      imageUrl:'https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
-      alt:'splash'
-    },
-    {
-      username:'Micheal Black', 
-      caption:' The colorful drawing',
-      imageUrl:'https://images.unsplash.com/photo-1598112152680-0c39a2928c64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      alt:'colorful'
-    },
-    {
-      username:'Warren Smith',
-      caption:' Art work -- a paint',
-      imageUrl:'https://images.unsplash.com/photo-1529405456913-530d6c6d2966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
-      alt:'paint'
-    }
+    // {
+    //   username:'Dan Hunter', 
+    //   caption:' The splashing moment', 
+    //   imageUrl:'https://images.unsplash.com/photo-1594372365401-3b5ff14eaaed?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80',
+    //   alt:'splash'
+    // },
+    // {
+    //   username:'Micheal Black', 
+    //   caption:' The colorful drawing',
+    //   imageUrl:'https://images.unsplash.com/photo-1598112152680-0c39a2928c64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    //   alt:'colorful'
+    // },
+    // {
+    //   username:'Warren Smith',
+    //   caption:' Art work -- a paint',
+    //   imageUrl:'https://images.unsplash.com/photo-1529405456913-530d6c6d2966?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    //   alt:'paint'
+    // }
   ]);
+  // useEffect -> Runs a piece of code based on a specific conditions
+  useEffect(()=>{
+
+    const unsub = onSnapshot(collection(db,'posts'), (snapshot) => {
+       setPosts(snapshot.docs.map(doc => doc.data()));
+       })
+  },[]);
+
 
   return (
     <div className='app'>
@@ -38,7 +48,7 @@ function App() {
         posts.map(post =>(
           <Post username={post.username} caption={post.caption} imageUrl={post.imageUrl} alt={post.alt}/>
         ))
-      }
+      }/
       </div>
 
   );
