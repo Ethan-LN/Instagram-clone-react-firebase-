@@ -3,10 +3,13 @@ import './App.css';
 import Post from './Post';
 import { db } from './firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
+import BasicModal from './components/Modal';
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
+  const signUp = BasicModal();
+  const signIn = BasicModal();
   
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(()=>{
@@ -22,16 +25,8 @@ function App() {
 
   return (
     <div className='app'>
-      <form>
-      {/* <Modal
-        open={open}
-        onClose={()=> setOpen(false)}
-      > 
-        <div style={modalStyle} className={classes.paper}>
-          <h2>I am a modal</h2>
-        </div>
-        </Modal> */}
-        </form>
+      {signUp}
+      {signIn}
       <div className='app__header'> 
       <img
         className='app__headerImage'
@@ -39,6 +34,7 @@ function App() {
         alt='instagram logo'
       />
       </div>
+      <button></button>
       <h1>Hello, let us start to build with React🚀</h1>
       {
         posts.map(({id, post})=>(
