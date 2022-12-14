@@ -3,7 +3,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import ValidationTextFields from './Form';
+
+import FormPropsTextFields from './Form';
 
 const style = {
   position: 'absolute',
@@ -21,7 +22,6 @@ export default function BasicModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const signUpForm = ValidationTextFields();
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            {signUpForm}
+            <FormPropsTextFields name="Sign in" email="email" password="password" />
         </Box>
       </Modal>
     </div>
