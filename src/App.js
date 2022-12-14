@@ -8,8 +8,8 @@ import BasicModal from './components/Modal';
 function App() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
-  const signUp = BasicModal();
-  const signIn = BasicModal();
+  // const signUp = BasicModal();
+  // const signIn = BasicModal();
   
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(()=>{
@@ -25,8 +25,6 @@ function App() {
 
   return (
     <div className='app'>
-      {signUp}
-      {signIn}
       <div className='app__header'> 
       <img
         className='app__headerImage'
@@ -34,14 +32,17 @@ function App() {
         alt='instagram logo'
       />
       </div>
-      <button></button>
+      <div className='app__login'>
+        <BasicModal name='Sign In'/>
+        <BasicModal name='Sign Up'/>
+      </div>
       <h1>Hello, let us start to build with React🚀</h1>
       {
         posts.map(({id, post})=>(
           <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} alt={post.alt}/>
         ))
-      }/
-      </div>
+      }
+  </div>
 
   );
 }

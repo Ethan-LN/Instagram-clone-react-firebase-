@@ -18,3 +18,8 @@
   width: 120px;
   height: auto;
 }
+
+.app__login {
+  display: flex;
+  justify-content: flex-end;
+}
