@@ -33,7 +33,7 @@ function App() {
       />
       </div>
       <div className='app__login'>
-        <BasicModal name='Sign In'/>
+        <BasicModal name='Sign In' />
         <BasicModal name='Sign Up'/>
       </div>
       <h1>Hello, let us start to build with React🚀</h1>
