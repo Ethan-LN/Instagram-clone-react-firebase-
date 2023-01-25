@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
 import FormPropsTextFields from './Form';
 
 const style = {
@@ -29,11 +28,9 @@ export default function BasicModal(props) {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-            <FormPropsTextFields name="Sign in" email="email" password="password" />
+            <FormPropsTextFields name="sign in" email="email" password="password" createa-ccount="create-new-account"/>
         </Box>
       </Modal>
     </div>
