@@ -36,7 +36,7 @@ function App() {
         <BasicModal name='Sign In' />
         <BasicModal name='Sign Up'/>
       </div>
-      <h1>Hello, let us start to build with React🚀</h1>
+      <h1>Hello, let us start to build with React🚀🚀</h1>
       {
         posts.map(({id, post})=>(
           <Post key={id} username={post.username} caption={post.caption} imageUrl={post.imageUrl} alt={post.alt}/>
