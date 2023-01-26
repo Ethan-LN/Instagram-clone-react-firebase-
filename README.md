@@ -4,4 +4,5 @@
 👉 How to upload images to Firebase Storage and use them on your site! 🖥️ <br />
 👉 Real-time database with Firebase’s Firestore 🔥 <br />
 
-💻🌐🔥 Website: https://instagram-clone-42aea.web.app/
+💻🌐🔥 Website: https://instagram-clone-42aea.web.app/ <br />
+👉 The site is hosted but it is still under developing process <br />
