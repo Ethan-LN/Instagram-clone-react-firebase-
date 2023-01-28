@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import FormPropsTextFields from './Form';
+import Form from './Form';
 
 const style = {
   position: 'absolute',
@@ -29,9 +29,9 @@ export default function BasicModal(props) {
         open={open}
         onClose={handleClose}
       >
-        <Box sx={style}>
-            <FormPropsTextFields name="sign in" email="email" password="password" createa-ccount="create-new-account"/>
-        </Box>
+        <div>
+              <Form name="sign in" email="email" password="password" createa-ccount="create-new-account"/>
+        </div>
       </Modal>
     </div>
   );
