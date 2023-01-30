@@ -3,13 +3,24 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ValidationTextFields from './ValidateFrom';
 import './Form.css';
-import { Button, input } from '@mui/material';
+import { Button, Input } from '@mui/material';
 import { bgcolor } from '@mui/system';
+import { db,auth } from '../firebase';
+import { useState } from 'react';
 
 export default function Form(props) {
-  const SignUp = () =>{
-
+  const signUp = (event) =>{
+    event.preventDefault();
+    // auth.createUserWithEmailAndPassword(props.email,props.password)
+    // .catch((error) => alert(error.message));
   }
+
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+
+
   return (
     <form className='form__layout'>
       <img
@@ -18,29 +29,26 @@ export default function Form(props) {
         alt='instagram logo'
     />
       <div className='textfield__layout'>
-        <TextField
-          required
-          id="filled-required"
-          label="username"
-          variant="filled"
+        <Input 
+          placeholder="username"
+          type="text"
+          value={username}
+          onChange={(e)=> setUserName(e.target.value)}
         />
-        <TextField
-          required
-          id="filled-email"
-          label="email"
-          variant="filled"
+        <Input 
+          placeholder="email"
+          type="text"
+          value={email}
+          onChange={(e)=> setEmail(e.target.value)}
         />
-        <TextField
-          fullWidth={true}
-          required
-          id="filled-password-input"
-          label="password"
+        <Input 
+          placeholder="password"
           type="password"
-          autoComplete="current-password"
-          variant="filled"
+          value={password}
+          onChange={(e)=> setPassword(e.target.value)}
         />
-      </div>
-        <Button fullWidth={true} className="btn__signUp" onClick={SignUp}>Sign Up</Button>
+        <Button type="submit" fullWidth={true} className="btn__signUp" onClick={signUp}>Sign Up</Button>
+        </div>
     </form>
   );
 }
