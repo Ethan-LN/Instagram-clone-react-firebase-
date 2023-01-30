@@ -6,13 +6,14 @@ import './Form.css';
 import { Button, Input } from '@mui/material';
 import { bgcolor } from '@mui/system';
 import { db,auth } from '../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from 'react';
 
 export default function Form(props) {
   const signUp = (event) =>{
     event.preventDefault();
-    // auth.createUserWithEmailAndPassword(props.email,props.password)
-    // .catch((error) => alert(error.message));
+    createUserWithEmailAndPassword(auth, email, password)
+    .catch((error) => alert(error.message));
   }
 
   const [username, setUserName] = useState("");
@@ -47,7 +48,7 @@ export default function Form(props) {
           value={password}
           onChange={(e)=> setPassword(e.target.value)}
         />
-        <Button type="submit" fullWidth={true} className="btn__signUp" onClick={signUp}>Sign Up</Button>
+        <Button type="submit" onClick={signUp}>Sign Up</Button>
         </div>
     </form>
   );
