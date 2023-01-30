@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ValidationTextFields from './ValidateFrom';
 import './Form.css';
-import { Button, input } from '@mui/material';
+import { Button, Input } from '@mui/material';
 import { bgcolor } from '@mui/system';
 import { db,auth } from '../firebase';
 import { useState } from 'react';
@@ -16,24 +16,10 @@ export default function Form(props) {
   }
 
   const [username, setUserName] = useState("");
-  const [nameValid, setNameValid] = useState(false);
-
   const [email, setEmail] = useState("");
-  const [emailValid, setEmailValid] = useState(false);
-
   const [password, setPassword] = useState("");
-  const [pwdValid, setPwdValid] = useState(false);
 
-  const handleValidationUsername = (e) => {
-    //set value to user input
-    setUserName(e.target.username);
-    
-    //define regex     
-    const reg = new RegExp("[a-z]");
-    
-    //test whether input is valid
-    setNameValid(reg.test(e.target.value));
-};
+
 
   return (
     <form className='form__layout'>
@@ -43,42 +29,26 @@ export default function Form(props) {
         alt='instagram logo'
     />
       <div className='textfield__layout'>
-        <TextField
-          required={true}
-          error={!nameValid}
-          id="filled-required"
-          label="username"
+        <Input 
+          placeholder="username"
+          type="text"
           value={username}
-          variant="filled"
-          onChange={(e) => handleValidationUsername(e)}
+          onChange={(e)=> setUserName(e.target.value)}
         />
-        <TextField
-          required = {true}
-          id="filled-email"
-          label="email"
-          // value={value}
-          variant="filled"
-          // onChange={(e) => handleValidation(e)}
+        <Input 
+          placeholder="email"
+          type="text"
+          value={email}
+          onChange={(e)=> setEmail(e.target.value)}
         />
-        <TextField
-          required
-          id="filled-password-input"
-          label="password"
+        <Input 
+          placeholder="password"
           type="password"
-          autoComplete="current-password"
-          variant="filled"
+          value={password}
+          onChange={(e)=> setPassword(e.target.value)}
         />
-
-        <TextField
-          required
-          id="filled-password-input"
-          label="confrim password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-        />
-      </div>
         <Button type="submit" fullWidth={true} className="btn__signUp" onClick={signUp}>Sign Up</Button>
+        </div>
     </form>
   );
 }
