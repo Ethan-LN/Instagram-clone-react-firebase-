@@ -3,11 +3,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import ValidationTextFields from './ValidateFrom';
 import './Form.css';
-import { Button, Input } from '@mui/material';
+import { Button, Input, listItemIconClasses } from '@mui/material';
 import { bgcolor } from '@mui/system';
 import { db,auth } from '../firebase';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword} from "firebase/auth";
 import { useState } from 'react';
+import { useEffect } from 'react';
+import { updateProfile } from 'firebase/auth';
 
 export default function Form(props) {
   const signUp = (event) =>{
@@ -18,9 +20,33 @@ export default function Form(props) {
 
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("") ;
+  const [user,setUser] = useState(null);
 
+  useEffect(()=> {
+    auth.onAuthStateChanged((authUser)=> {
+      if (authUser) {
+        // user has logged in ..
+        console.log(authUser);
+        setUser(authUser);
+        if (authUser.displayName) {
+          // don't update username
+        } else {
+          return authUser.updateProfile({
+            displayName: username,
+          })
+        }
+      } else {
+        setUser(null);
+        // user has logged out ..
+      }
+    });
 
+    return () => {
+      // perform some cleanup action before re-fire it
+      console.log("Unsubscribe auth....")
+    }
+  },[user, username]);
 
   return (
     <form className='form__layout'>
