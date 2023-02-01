@@ -6,15 +6,16 @@ import './Form.css';
 import { Button, Input, listItemIconClasses } from '@mui/material';
 import { bgcolor } from '@mui/system';
 import { db,auth } from '../firebase';
-import { createUserWithEmailAndPassword} from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { updateProfile } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Form(props) {
-  const signUp = (event) =>{
+  const signUp = async (event) =>{
     event.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
     .catch((error) => alert(error.message));
   }
 
@@ -23,30 +24,22 @@ export default function Form(props) {
   const [password, setPassword] = useState("") ;
   const [user,setUser] = useState(null);
 
+
+  //Keep login after refresh;
+
   useEffect(()=> {
-    auth.onAuthStateChanged((authUser)=> {
+    const unsubscribe = auth.onAuthStateChanged((authUser)=> {
       if (authUser) {
-        // user has logged in ..
-        console.log(authUser);
+        console.log(authUser)
         setUser(authUser);
-        if (authUser.displayName) {
-          // don't update username
-        } else {
-          return authUser.updateProfile({
-            displayName: username,
-          })
-        }
       } else {
         setUser(null);
-        // user has logged out ..
       }
-    });
-
-    return () => {
-      // perform some cleanup action before re-fire it
-      console.log("Unsubscribe auth....")
-    }
-  },[user, username]);
+      });
+      return () => {
+        unsubscribe();
+      };
+    },[user, username]);
 
   return (
     <form className='form__layout'>
