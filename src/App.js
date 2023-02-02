@@ -3,7 +3,8 @@ import "./App.css";
 import Post from "./Post";
 import { db } from "./firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import BasicModal from "./components/Modal";
+import SignUpModal from "./components/SignUpModal";
+import LoginModal from "./components/LoginModal";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
 import { jsx, css } from "@emotion/react";
@@ -61,7 +62,7 @@ function App() {
         <Button onClick={()=> auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">
-          <BasicModal
+          <SignUpModal
             name="Sign Up"
             username={username}
             setUsername={setUsername}
@@ -72,7 +73,13 @@ function App() {
             user={user}
             setUser={setUser}
           />
-          <BasicModal name="Sign In" />
+          <LoginModal 
+          name="Sign In"
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword} 
+          />
         </div>
       )}
       <h1>Hello, let us start to build with React🚀</h1>

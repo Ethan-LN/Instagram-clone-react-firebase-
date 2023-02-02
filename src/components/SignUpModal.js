@@ -1,9 +1,7 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import Form from "./Form";
+import SignUpForm from "./SignUpForm";
 
 const style = {
   position: "absolute",
@@ -17,7 +15,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal(props) {
+export default function SignUpModal(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -27,7 +25,7 @@ export default function BasicModal(props) {
       <Button onClick={handleOpen}>{props.name} </Button>
       <Modal open={open} onClose={handleClose}>
         <div>
-          <Form
+          <SignUpForm
             user={props.user}
             username={props.username}
             setUsername={props.setUsername}
@@ -37,6 +35,7 @@ export default function BasicModal(props) {
             setEmail={props.setEmail}
             setPassword={props.setPassword}
             createa-account="create-new-account"
+
           />
         </div>
       </Modal>

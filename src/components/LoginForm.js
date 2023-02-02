@@ -2,20 +2,18 @@ import * as React from "react";
 import "./Form.css";
 import { Button, Input} from "@mui/material";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-export default function Form(props) {
-  const signUp = async (event) => {
+export default function LoginForm(props) {
+  const signIn =(event) => {
     event.preventDefault();
-    await createUserWithEmailAndPassword(
+    signInWithEmailAndPassword(
       auth,
       props.email,
       props.password
     )
-    .then((authUser)=> { return updateProfile(authUser,
-      {displayName: props.username}
-      )})
     .catch((error) => alert(error.message));
+    props.handleClose();
   };
 
   return (
@@ -26,12 +24,6 @@ export default function Form(props) {
         alt="instagram logo"
       />
       <div className="textfield__layout">
-        <Input
-          placeholder="username"
-          type="text"
-          value={props.username}
-          onChange={(e) => props.setUsername(e.target.value)}
-        />
         <Input
           placeholder="email"
           type="text"
@@ -44,8 +36,8 @@ export default function Form(props) {
           value={props.password}
           onChange={(e) => props.setPassword(e.target.value)}
         />
-        <Button type="submit" onClick={signUp}>
-          Sign Up
+        <Button type="submit" onClick={signIn}>
+          Login
         </Button>
       </div>
     </form>
