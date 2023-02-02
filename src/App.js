@@ -59,7 +59,7 @@ function App() {
       </div>
 
       {user ? (
-        <Button onClick={()=> auth.signOut()}>LOGOUT</Button>
+        <Button onClick={() => auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">
           <SignUpModal
@@ -73,12 +73,12 @@ function App() {
             user={user}
             setUser={setUser}
           />
-          <LoginModal 
-          name="Sign In"
-          email={email}
-          setEmail={setEmail}
-          password={password}
-          setPassword={setPassword} 
+          <LoginModal
+            name="Sign In"
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
           />
         </div>
       )}
