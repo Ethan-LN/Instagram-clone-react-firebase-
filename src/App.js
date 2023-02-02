@@ -3,17 +3,10 @@ import "./App.css";
 import Post from "./Post";
 import { db } from "./firebase";
 import { collection, onSnapshot } from "firebase/firestore";
-import SignUpModal from "./components/SignUpModal";
-import LoginModal from "./components/LoginModal";
+import LoginForm from "./components/LoginForm";
+import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import { jsx, css } from "@emotion/react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-  signOut,
-} from "firebase/auth";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -21,6 +14,12 @@ function App() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [user, setUser] = useState("");
+  const [signUp, setSignUp] = useState(false);
+  const openSignUp = () => setSignUp(true);
+  const closeSignUp = () => setSignUp(false);
+  const [signIn, setSignIn] = useState(false);
+  const openSignIn = () => setSignIn(true);
+  const closeSignIn = () => setSignIn(false);
 
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(() => {
@@ -62,7 +61,7 @@ function App() {
         <Button onClick={() => auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">
-          <SignUpModal
+          <SignUpForm
             name="Sign Up"
             username={username}
             setUsername={setUsername}
@@ -72,13 +71,19 @@ function App() {
             setPassword={setPassword}
             user={user}
             setUser={setUser}
+            signUp={signUp}
+            openSignUp={openSignUp}
+            closeSignUp={closeSignUp}
           />
-          <LoginModal
+          <LoginForm
             name="Sign In"
             email={email}
             setEmail={setEmail}
             password={password}
             setPassword={setPassword}
+            signIn={signIn}
+            openSignIn={openSignIn}
+            closeSignIn={closeSignIn}
           />
         </div>
       )}
