@@ -6,40 +6,22 @@ import './Form.css';
 import { Button, Input, listItemIconClasses } from '@mui/material';
 import { bgcolor } from '@mui/system';
 import { db,auth } from '../firebase';
-import { createUserWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile} from "firebase/auth";
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { updateProfile } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
 
 export default function Form(props) {
   const signUp = async (event) =>{
     event.preventDefault();
-    await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, props.email, props.password)
     .catch((error) => alert(error.message));
   }
 
-  const [username, setUserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("") ;
-  const [user,setUser] = useState(null);
+  // const [this.props.username, setUserName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("") ;
+  // const [user,setUser] = useState(null);
 
-
-  //Keep login after refresh;
-
-  useEffect(()=> {
-    const unsubscribe = auth.onAuthStateChanged((authUser)=> {
-      if (authUser) {
-        console.log(authUser)
-        setUser(authUser);
-      } else {
-        setUser(null);
-      }
-      });
-      return () => {
-        unsubscribe();
-      };
-    },[user, username]);
 
   return (
     <form className='form__layout'>
@@ -52,20 +34,20 @@ export default function Form(props) {
         <Input 
           placeholder="username"
           type="text"
-          value={username}
-          onChange={(e)=> setUserName(e.target.value)}
+          value={props.username}
+          onChange={(e)=> this.props.setUserName(e.target.value)}
         />
         <Input 
           placeholder="email"
           type="text"
-          value={email}
-          onChange={(e)=> setEmail(e.target.value)}
+          value={props.email}
+          onChange={(e)=> props.setEmail(e.target.value)}
         />
         <Input 
           placeholder="password"
           type="password"
-          value={password}
-          onChange={(e)=> setPassword(e.target.value)}
+          value={props.password}
+          onChange={(e)=> props.setPassword(e.target.value)}
         />
         <Button type="submit" onClick={signUp}>Sign Up</Button>
         </div>

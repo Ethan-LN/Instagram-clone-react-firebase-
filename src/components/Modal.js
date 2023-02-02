@@ -30,7 +30,7 @@ export default function BasicModal(props) {
         onClose={handleClose}
       >
         <div>
-              <Form name="sign in" email="email" password="password" createa-ccount="create-new-account"/>
+              <Form username={props.username} email={props.email} password={props.password} setUser={props.setUser} setEmail={props.setEmail} setPassword={props.setPassword} createa-account="create-new-account"/>
         </div>
       </Modal>
     </div>

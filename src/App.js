@@ -4,13 +4,16 @@ import Post from './Post';
 import { db } from './firebase';
 import { collection, onSnapshot } from 'firebase/firestore';
 import BasicModal from './components/Modal';
+import { auth } from './firebase';
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile} from "firebase/auth";
 
 function App() {
   const [posts, setPosts] = useState([]);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [emial, setEmail] = useState('');
+  const [email, setEmail] = useState('');
+  const [user,setUser] = useState(null);
   
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(()=>{
@@ -23,7 +26,29 @@ function App() {
        })
   },[]);
 
+  //Keep login after refresh;
 
+  useEffect(()=> {
+    const unsubscribe = auth.onAuthStateChanged((authUser)=> {
+      if (authUser) {
+        console.log(authUser)
+        setUser(authUser);
+        if (authUser.displayName) {
+          //don't update name
+        } else {
+            return updateProfile(authUser,{
+              displayName : username
+              // update new user name
+            })
+          }
+      } else {
+        setUser(null);
+      }
+      });
+      return () => {
+        unsubscribe();
+      };
+    },[user, username]);
   return (
     <div className='app'>
       <div className='app__header'> 
@@ -34,7 +59,7 @@ function App() {
       />
       </div>
       <div className='app__login'>
-        <BasicModal name='Sign Up' />
+        <BasicModal name='Sign Up' username={username} email={email} password={password} setUser={setUser} setEmail={setEmail} setPassword={setPassword}/>
         <BasicModal name='Sign In'/>
       </div>
       <h1>Hello, let us start to build with React🚀</h1>
