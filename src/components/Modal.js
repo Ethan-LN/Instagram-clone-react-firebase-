@@ -28,7 +28,9 @@ export default function BasicModal(props) {
       <Modal open={open} onClose={handleClose}>
         <div>
           <Form
+            user={props.user}
             username={props.username}
+            setUsername={props.setUsername}
             email={props.email}
             password={props.password}
             setUser={props.setUser}

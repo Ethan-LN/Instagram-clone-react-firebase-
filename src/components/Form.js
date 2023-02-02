@@ -1,8 +1,8 @@
 import * as React from "react";
 import "./Form.css";
-import { Button, Input, listItemIconClasses } from "@mui/material";
+import { Button, Input} from "@mui/material";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 export default function Form(props) {
   const signUp = async (event) => {
@@ -11,7 +11,11 @@ export default function Form(props) {
       auth,
       props.email,
       props.password
-    ).catch((error) => alert(error.message));
+    )
+    .then((authUser)=> { return updateProfile(authUser,
+      {displayName: props.username}
+      )})
+    .catch((error) => alert(error.message));
   };
 
   return (
@@ -26,7 +30,7 @@ export default function Form(props) {
           placeholder="username"
           type="text"
           value={props.username}
-          onChange={(e) => this.props.setUserName(e.target.value)}
+          onChange={(e) => props.setUsername(e.target.value)}
         />
         <Input
           placeholder="email"
