@@ -6,9 +6,9 @@ import Modal from "@mui/material/Modal";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginForm(props) {
-  const signIn = (event) => {
+  const signIn = async (event) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, props.email, props.password).catch(
+    await signInWithEmailAndPassword(auth, props.email, props.password).catch(
       (error) => alert(error.message)
     );
     props.closeSignIn();

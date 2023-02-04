@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import Post from "./Post";
+import Post from "./components/Post";
 import { db } from "./firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
+import ImageUpload from "./components/imageUpload";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -49,6 +50,10 @@ function App() {
   }, [user, username]);
   return (
     <div className="app">
+      {user? (
+      <ImageUpload username={user.displayName}/>):(
+        <h3> Login to upload</h3>
+      )}
       <div className="app__header">
         <img
           className="app__headerImage"
