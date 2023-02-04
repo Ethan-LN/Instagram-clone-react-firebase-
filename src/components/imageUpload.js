@@ -6,7 +6,6 @@ import {
   ref,
   uploadBytesResumable,
   getDownloadURL,
-  uploadBytes,
 } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
 
@@ -22,7 +21,7 @@ export default function ImageUpload(props) {
   };
 
   const handleUpload = () => {
-    const storageRef = ref(storage, `images/${image.name}`);
+    const storageRef = ref(storage, `images/${image.name + uuidv4()}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
     uploadTask.on(
       "state_changed",
