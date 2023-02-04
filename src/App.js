@@ -38,7 +38,6 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
         setUser(authUser);
       } else {
         setUser(null);
@@ -51,7 +50,7 @@ function App() {
   return (
     <div className="app">
       {user? (
-      <ImageUpload username={user.displayName}/>):(
+      <ImageUpload username={user.displayName} user={user}/>):(
         <h3> Login to upload</h3>
       )}
       <div className="app__header">
@@ -62,7 +61,7 @@ function App() {
         />
       </div>
 
-      {user ? (
+      {user? (
         <Button onClick={() => auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">

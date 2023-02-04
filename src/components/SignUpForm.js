@@ -10,7 +10,7 @@ export default function SignUpForm(props) {
     event.preventDefault();
     await createUserWithEmailAndPassword(auth, props.email, props.password)
       .then((authUser) => {
-        return updateProfile(authUser, { displayName: props.username });
+        return (authUser.user.displayName = props.username);
       })
       .catch((error) => alert(error.message));
   };
