@@ -18,7 +18,6 @@ export default function ImageUpload(props) {
   };
 
   const handleUpload = () => {
-    // const uploadTask = storage.ref(`images/${image.name}`).put(image);
     const storageRef = ref(storage, `images/${image.name}`);
     const uploadTask = uploadBytesResumable(storageRef,image);
     uploadTask.on(
@@ -29,7 +28,6 @@ export default function ImageUpload(props) {
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100 
         );
         setProgress(progress);
-        console.log(progress);
       }, 
       (error) => {
         // Error function ...
@@ -59,13 +57,19 @@ export default function ImageUpload(props) {
       },
       ()=> {
         // complete function ...
-        getDownloadURL(ref(uploadTask,`images/${image.name}`))
+        getDownloadURL(uploadTask.snapshot.ref)
+        // getDownloadURL(ref(uploadTask,`images/${image.name}`))
         // ref(storage,`images/${image.name}`)
         // storage
         //   .ref("image")
         //   .child(image.name)
         //   .getDownloadURL()
           .then(url => {
+
+            console.log(url);
+            console.log(serverTimestamp());
+            console.log(caption);
+            console.log(props.name);
             // post image inside db
             // db.collection("posts").add({
             //   timestamp : firebase.Firestore.fieldValue.serverTimestamp(),
@@ -81,7 +85,6 @@ export default function ImageUpload(props) {
             });
           })
       }
-
     )
   }
 

@@ -51,7 +51,7 @@ function App() {
   return (
     <div className="app">
       {user? (
-      <ImageUpload username={user}/>):(
+      <ImageUpload username={user.displayName}/>):(
         <h3> Login to upload</h3>
       )}
       <div className="app__header">
