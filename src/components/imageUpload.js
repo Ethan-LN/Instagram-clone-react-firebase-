@@ -1,12 +1,9 @@
 import { Button } from '@mui/material';
-import { FirebaseError } from 'firebase/app';
-import { Firestore } from 'firebase/firestore';
 import { useState } from 'react';
 import { storage, db } from '../firebase';
-import { Timestamp } from 'firebase/firestore';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
-
-
+import { ref, uploadBytesResumable, getDownloadURL, uploadBytes } from "firebase/storage";
+import { uuidv4 } from '@firebase/util';
 
 export default function ImageUpload(props) {
 
@@ -21,7 +18,9 @@ export default function ImageUpload(props) {
   };
 
   const handleUpload = () => {
-    const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    // const uploadTask = storage.ref(`images/${image.name}`).put(image);
+    const storageRef = ref(storage, `images/${image.name}`);
+    const uploadTask = uploadBytesResumable(storageRef,image);
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -30,18 +29,42 @@ export default function ImageUpload(props) {
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100 
         );
         setProgress(progress);
+        console.log(progress);
       }, 
       (error) => {
         // Error function ...
-        console.log(error);
-        alert(error.message);
+        switch (error.code) {
+          case 'storage/object-not-found':
+            // File doesn't exist
+            console.log("File doesn't exist");
+            break;
+          case 'storage/unauthorized':
+            // User doesn't have permission to access the object
+            console.log("User doesn't have permission to access the object");
+            break;
+          case 'storage/canceled':
+            // User canceled the upload
+            console.log('User canceled the upload');
+            break;
+    
+          // ...
+    
+          case 'storage/unknown':
+            // Unknown error occurred, inspect the server response
+            console.log('Unknown error occurred, inspect the server response');
+            break;
+        }
+        // console.log(error);
+        // alert(error.message);
       },
       ()=> {
         // complete function ...
-        storage
-          .ref("image")
-          .child(image.name)
-          .getDownloadURL()
+        getDownloadURL(ref(uploadTask,`images/${image.name}`))
+        // ref(storage,`images/${image.name}`)
+        // storage
+        //   .ref("image")
+        //   .child(image.name)
+        //   .getDownloadURL()
           .then(url => {
             // post image inside db
             // db.collection("posts").add({
