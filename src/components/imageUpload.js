@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { storage, db } from "../firebase";
+import "./ImageUpload.css";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import {
   ref,
@@ -8,6 +9,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
+
 
 export default function ImageUpload(props) {
   const [image, setImage] = useState(null);
@@ -45,17 +47,27 @@ export default function ImageUpload(props) {
             imageUrl: url,
             username: props.username,
           });
+          setProgress(0);
+          setCaption("");
+          setImage(null);
         });
       }
     );
   };
 
   return (
-    <div>
+    <div className="imageUpload">
+      <progress className="imageUpload__progress" value={progress} max="100" />
       <input
         type="text"
         placeholder="Enter a caption ..."
-        onChange={(event) => setCaption(event.target.value)}
+        onChange={(event) => {
+          if(event.target.value ===null){
+          setCaption(null)
+          } else {
+            setCaption(event.target.value);
+          }
+        }}
         value={caption}
       />
       <input type="file" onChange={handleChange} />

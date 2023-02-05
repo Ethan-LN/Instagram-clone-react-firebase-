@@ -11,6 +11,8 @@ export default function LoginForm(props) {
     await signInWithEmailAndPassword(auth, props.email, props.password).catch(
       (error) => alert(error.message)
     );
+    props.setEmail("");
+    props.setPassword("");
     props.closeSignIn();
   };
 

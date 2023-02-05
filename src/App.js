@@ -7,7 +7,7 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import ImageUpload from "./components/imageUpload";
+import ImageUpload from "./components/ImageUpload";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -49,19 +49,14 @@ function App() {
   }, [user, username]);
   return (
     <div className="app">
-      {user? (
-      <ImageUpload username={user.displayName} user={user}/>):(
-        <h3> Login to upload</h3>
-      )}
       <div className="app__header">
         <img
           className="app__headerImage"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png"
           alt="instagram logo"
         />
-      </div>
 
-      {user? (
+{user? (
         <Button onClick={() => auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">
@@ -91,6 +86,8 @@ function App() {
           />
         </div>
       )}
+      </div>
+
       <h1>Hello, let us start to build with React🚀</h1>
       {posts.map(({ id, post }) => (
         <Post
@@ -101,6 +98,10 @@ function App() {
           alt={post.alt}
         />
       ))}
+      {user? (
+      <ImageUpload username={user.displayName}/>):(
+        <h3> Login to upload</h3>
+      )}
     </div>
   );
 }
