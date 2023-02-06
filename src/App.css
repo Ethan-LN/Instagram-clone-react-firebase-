@@ -32,7 +32,7 @@
   padding: 20px;
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 20px;
 }
 
 @media screen and (max-width:700px) {
