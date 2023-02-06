@@ -7,8 +7,8 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import ImageUpload from "./components/ImageUpload";
 import { InstagramEmbed } from 'react-social-media-embed';
+import ImageUpload from "./components/ImageUpload";
 
 function App() {
   const [posts, setPosts] = useState([]);

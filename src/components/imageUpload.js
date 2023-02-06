@@ -11,7 +11,7 @@ import {
 import { uuidv4 } from "@firebase/util";
 
 
-export default function ImageUpload(props) {
+function ImageUpload(props) {
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [caption, setCaption] = useState("");
@@ -77,3 +77,5 @@ export default function ImageUpload(props) {
     </div>
   );
 }
+
+export default ImageUpload;
