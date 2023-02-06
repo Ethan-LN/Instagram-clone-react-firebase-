@@ -8,6 +8,7 @@ import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
 import ImageUpload from "./components/ImageUpload";
+import { InstagramEmbed } from 'react-social-media-embed';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -89,15 +90,22 @@ function App() {
       </div>
 
       <h1>Hello, let us start to build with React🚀</h1>
-      {posts.map(({ id, post }) => (
-        <Post
-          key={id}
-          username={post.username}
-          caption={post.caption}
-          imageUrl={post.imageUrl}
-          alt={post.alt}
-        />
-      ))}
+      <div className="app__posts">
+        <div className="app__postsLeft">
+        {posts.map(({ id, post }) => (
+          <Post
+            key={id}
+            username={post.username}
+            caption={post.caption}
+            imageUrl={post.imageUrl}
+            alt={post.alt}
+          />
+        ))}
+        </div>
+        <div className="app__postsRight">
+          <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328}/>
+        </div>
+      </div>
       {user? (
       <ImageUpload username={user.displayName}/>):(
         <h3> Login to upload</h3>

@@ -13,9 +13,9 @@ export default function SignUpForm(props) {
         return (authUser.user.displayName = props.username);
       })
       .catch((error) => alert(error.message));
-      props.setUsername("");
-      props.setEmail("");
-      props.setPassword("");
+      // props.setUsername("");
+      // props.setEmail("");
+      // props.setPassword("");
   };
 
   return (
