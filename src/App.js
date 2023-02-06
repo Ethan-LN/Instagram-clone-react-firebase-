@@ -7,7 +7,8 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import { InstagramEmbed } from "react-social-media-embed";
+// import { InstagramEmbed } from "react-social-media-embed";
+import InstagramEmbed from "./components/InstagramEmbed";
 import ImageUpload from "./components/ImageUpload";
 
 function App() {
@@ -101,10 +102,9 @@ function App() {
           ))}
         </div>
         <div className="app__postsRight">
-          <InstagramEmbed
-            url="https://www.instagram.com/p/CnLSzS_v61N/"
+          {/* <InstagramEmbed
             width={328}
-          />
+          /> */}
         </div>
       </div>
       {user ? (
