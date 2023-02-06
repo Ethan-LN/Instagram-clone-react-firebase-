@@ -5,6 +5,7 @@
 .app {
   background-color: #fafafa;
   height: 100vh;
+  margin-bottom: 20px;
 }
 
 .app__header {
@@ -35,8 +36,16 @@
   gap: 20px;
 }
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:800px) {
   .app__posts {
   flex-direction:column;
+  justify-content: center;
   }
+}
+
+.app__footer{
+  display: flex;
+  justify-content: center;
+  padding:30px;
+  color: gray;
 }

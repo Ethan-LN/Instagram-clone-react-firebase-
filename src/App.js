@@ -7,7 +7,7 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import { InstagramEmbed } from 'react-social-media-embed';
+import { InstagramEmbed } from "react-social-media-embed";
 import ImageUpload from "./components/ImageUpload";
 
 function App() {
@@ -57,59 +57,66 @@ function App() {
           alt="instagram logo"
         />
 
-{user? (
-        <Button onClick={() => auth.signOut()}>LOGOUT</Button>
-      ) : (
-        <div className="app__login">
-          <SignUpForm
-            name="Sign Up"
-            username={username}
-            setUsername={setUsername}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            user={user}
-            setUser={setUser}
-            signUp={signUp}
-            openSignUp={openSignUp}
-            closeSignUp={closeSignUp}
-          />
-          <LoginForm
-            name="Sign In"
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            signIn={signIn}
-            openSignIn={openSignIn}
-            closeSignIn={closeSignIn}
-          />
-        </div>
-      )}
+        {user ? (
+          <Button onClick={() => auth.signOut()}>LOGOUT</Button>
+        ) : (
+          <div className="app__login">
+            <SignUpForm
+              name="Sign Up"
+              username={username}
+              setUsername={setUsername}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              user={user}
+              setUser={setUser}
+              signUp={signUp}
+              openSignUp={openSignUp}
+              closeSignUp={closeSignUp}
+            />
+            <LoginForm
+              name="Sign In"
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              signIn={signIn}
+              openSignIn={openSignIn}
+              closeSignIn={closeSignIn}
+            />
+          </div>
+        )}
       </div>
-
-      <h1>Hello, let us start to build with React🚀</h1>
       <div className="app__posts">
         <div className="app__postsLeft">
-        {posts.map(({ id, post }) => (
-          <Post
-            key={id}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
-            alt={post.alt}
-          />
-        ))}
+          {posts.map(({ id, post }) => (
+            <Post
+              key={id}
+              username={post.username}
+              caption={post.caption}
+              imageUrl={post.imageUrl}
+              alt={post.alt}
+            />
+          ))}
         </div>
         <div className="app__postsRight">
-          <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328}/>
+          <InstagramEmbed
+            url="https://www.instagram.com/p/CnLSzS_v61N/"
+            width={328}
+          />
         </div>
       </div>
-      {user? (
-      <ImageUpload username={user.displayName}/>):(
-        <h3> Login to upload</h3>
+      {user ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <center>
+          <h3> Login to upload</h3>
+        </center>
       )}
+      <div className="app__footer">
+        <center><h6>©2023 Instagram clone from Ethan-LN</h6></center>
+      </div>
     </div>
   );
 }
