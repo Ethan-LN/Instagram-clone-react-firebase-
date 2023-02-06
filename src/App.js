@@ -7,7 +7,8 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
 import { Button } from "@mui/material";
-import ImageUpload from "./components/imageUpload";
+import ImageUpload from "./components/ImageUpload";
+import { InstagramEmbed } from 'react-social-media-embed';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -38,7 +39,6 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        console.log(authUser);
         setUser(authUser);
       } else {
         setUser(null);
@@ -50,19 +50,14 @@ function App() {
   }, [user, username]);
   return (
     <div className="app">
-      {user? (
-      <ImageUpload username={user.displayName}/>):(
-        <h3> Login to upload</h3>
-      )}
       <div className="app__header">
         <img
           className="app__headerImage"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png"
           alt="instagram logo"
         />
-      </div>
 
-      {user ? (
+{user? (
         <Button onClick={() => auth.signOut()}>LOGOUT</Button>
       ) : (
         <div className="app__login">
@@ -92,16 +87,29 @@ function App() {
           />
         </div>
       )}
+      </div>
+
       <h1>Hello, let us start to build with React🚀</h1>
-      {posts.map(({ id, post }) => (
-        <Post
-          key={id}
-          username={post.username}
-          caption={post.caption}
-          imageUrl={post.imageUrl}
-          alt={post.alt}
-        />
-      ))}
+      <div className="app__posts">
+        <div className="app__postsLeft">
+        {posts.map(({ id, post }) => (
+          <Post
+            key={id}
+            username={post.username}
+            caption={post.caption}
+            imageUrl={post.imageUrl}
+            alt={post.alt}
+          />
+        ))}
+        </div>
+        <div className="app__postsRight">
+          <InstagramEmbed url="https://www.instagram.com/p/CUbHfhpswxt/" width={328}/>
+        </div>
+      </div>
+      {user? (
+      <ImageUpload username={user.displayName}/>):(
+        <h3> Login to upload</h3>
+      )}
     </div>
   );
 }
