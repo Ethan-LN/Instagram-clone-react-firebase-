@@ -102,7 +102,11 @@ function App() {
         </div>
         <div className="app__postsRight">
           <InstagramEmbed
-            url="https://www.instagram.com/p/CnLSzS_v61N/"
+            url="https://www.instagram.com/tv/Cg5LVOkp03A/"
+            width={328}
+          />
+          <InstagramEmbed
+            url="https://www.instagram.com/p/CoAOeVUJoc_/"
             width={328}
           />
         </div>
