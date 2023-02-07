@@ -9,12 +9,12 @@ function Post({ username, caption, imageUrl, alt }) {
     <div className="post">
       <div className="post__header">
         <Avatar
-          sx={{ bgcolor: deepOrange[500] }}
           className="post__avatar"
+          sx={{ width: 38, height: 38, bgcolor: deepOrange[500]}}
           alt={username}
           src="/broken-image.jpg"
         />
-        <h3>{username}</h3>
+        <div className="post__username">{username}</div>
       </div>
       {/* header -> avatar + username */}
       <img className="post__image" src={imageUrl} alt={alt} />

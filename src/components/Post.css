@@ -1,71 +1,79 @@
 .post {
-    max-width: 500px;
-    min-width: 320px;
-    border: 1px solid lightgray;
-    margin-bottom: 20px;
-    border-radius: 3px;
-    align-items: center;
-    background-color: white;
+  max-width: 500px;
+  min-width: 320px;
+  border: 1px solid lightgray;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  align-items: center;
+  background-color: white;
 }
 .post__image {
-    width: 100%;
-    object-fit: contain;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
+  width: 100%;
+  object-fit: contain;
+  border-top: 0px solid lightgray;
+  border-bottom: 0px solid lightgray;
 }
 
 .post__text {
-    font-weight:normal;
-    padding: 20px;
-    size: 14px;
+  font-weight: normal;
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .post__header {
-    display: flex;
-    align-items: center;
-    padding: 8px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
 }
 
 .post__avatar {
-    margin-right: 10px;
-    margin-left:5px;
-    background-color:lightskyblue;
+  margin-right: 10px;
+  margin-left: 5px;
 }
-
+.post__username {
+    font-size: 15px;
+    font-weight: 600;
+}
 .post_icons {
-    border-top: 1px solid lightgray;
-    padding-top: 10px;
-    display: flex;
-    gap: 15px;
-    justify-content: flex-start;
-    flex-direction: row;
-    margin-left:15px;
-    margin-right: 15px;
+  border-top: 1px solid lightgray;
+  padding-top: 10px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
-.post__commentBox{
-    display:flex;
-    border: 1px lightgray;
-    /* border: 1px solid lightgray; */
-    border-radius: 3px;
-    padding-top: 10px;
+.post__commentBox {
+  display: flex;
+  border-radius: 3px;
+  padding-top: 10px;
 }
 
 .post__comment {
-    flex: 1;
-    outline: 0px;
-    border: none;
-    border-top: 1px solid lightgray;
-    padding: 10px;
-    font-size: 14px;
-    font-weight: 600;
+  flex: 1;
+  outline: 0px;
+  border: none;
+  border-top: 1px solid lightgray;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .post__button {
-    flex:0;
-    outline: 0px;
-    border: none;
-    background-color: white;
-    color: lightcoral;
-    border-top: 1px solid lightgray;
+  flex: 0;
+  outline: 0px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  background-color: white;
+  color: lightcoral;
+  border-top: 1px solid lightgray;
+  padding-right: 15px;
+}
+
+.app__postsRight {
+  gap: 20px;
 }
