@@ -10,12 +10,9 @@
 .post__image {
   width: 100%;
   object-fit: contain;
-  border-top: 0px solid lightgray;
-  border-bottom: 0px solid lightgray;
 }
 
 .post__text {
-  font-weight: normal;
   padding: 20px;
   font-size: 14px;
   font-weight: 500;
@@ -56,6 +53,7 @@
   outline: 0px;
   border: none;
   border-top: 1px solid lightgray;
+  border-radius: 0;
   padding: 15px;
   font-size: 14px;
   font-weight: 600;
@@ -70,7 +68,7 @@
   background-color: white;
   color: lightcoral;
   border-top: 1px solid lightgray;
-  padding-right: 15px;
+  padding:15px;
 }
 
 .app__postsRight {
