@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import Post from "./components/Post";
 import { db } from "./firebase";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignUpForm";
 import { auth } from "./firebase";
@@ -25,7 +25,8 @@ function App() {
 
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(() => {
-    onSnapshot(collection(db, "posts"), (snapshot) => {
+    const q = query(collection(db, "posts"),orderBy("timestamp","desc"));
+    onSnapshot(q,(snapshot) => {
       setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
