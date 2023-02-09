@@ -43,6 +43,16 @@
   margin-right: 15px;
 }
 
+.post_commentDisplay {
+    padding-left:20px;
+    font-size: 14px;
+    margin-top: 20px;
+    /* padding-top: 20px; */
+    /* gap:5px; */
+    /* display:flex;
+    flex-direction: row; */
+}
+
 .post__commentBox {
   display: flex;
   padding-top: 10px;
