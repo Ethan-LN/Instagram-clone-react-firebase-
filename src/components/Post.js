@@ -125,15 +125,18 @@ function Post({ postId, username, caption, imageUrl, alt }) {
           </svg>
         </div>
       </div>
-      <div >
-        {comments.length > 0 && ( 
+      <div>
+        {comments.length > 0 && (
           <div>
-          {comments.map(comment => (
-            <div className="post_commentDisplay">
-              <p><b> {comment.data().username } </b>{comment.data().text} </p>
-            </div>
-        ))}
-        </div>
+            {comments.map((comment) => (
+              <div key={comment.id} className="post_commentDisplay">
+                <p>
+                  <b> {comment.data().username} </b>
+                  {comment.data().text}{" "}
+                </p>
+              </div>
+            ))}
+          </div>
         )}
       </div>
       <div className="post__commentBox">
