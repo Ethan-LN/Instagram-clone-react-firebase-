@@ -43,6 +43,12 @@
   margin-right: 15px;
 }
 
+.post_commentDisplay {
+    padding-left:20px;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
 .post__commentBox {
   display: flex;
   padding-top: 10px;
