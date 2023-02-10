@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Post.css";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
-import { db} from "../firebase";
+import { db } from "../firebase";
 import {
   addDoc,
   collection,
@@ -16,7 +16,6 @@ function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
 
-
   useEffect(
     () =>
       onSnapshot(
@@ -25,7 +24,9 @@ function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
           orderBy("timestamp", "asc")
         ),
         (snapshot) => setComments(snapshot.docs)
-      ),[postId]);
+      ),
+    [postId]
+  );
 
   const handleComment = async (e) => {
     e.preventDefault();
@@ -138,24 +139,46 @@ function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
           </div>
         )}
       </div>
-      <div className="post__commentBox">
-        <input
-          className="post__comment"
-          type="text"
-          placeholder="Add a comment..."
-          value={comment}
-          onChange={(event) => setComment(event.target.value)}
-        />
-        <button
-          className="post__button"
-          type="submit"
-          disabled={!comment.trim()}
-          color="warning"
-          onClick={handleComment}
-        >
-          Post
-        </button>
-      </div>
+      {currentUser ? (
+        <div className="post__commentBox">
+          <input
+            className="post__comment"
+            type="text"
+            placeholder="Add a comment..."
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+          />
+          <button
+            className="post__button"
+            type="submit"
+            disabled={!comment.trim()}
+            color="warning"
+            onClick={handleComment}
+          >
+            Post
+          </button>
+        </div>
+      ) : (
+        <div className="post__commentBox">
+          <input
+            disabled
+            className="post__comments"
+            type="text"
+            placeholder="Login to add comment..."
+            value={comment}
+            onChange={(event) => setComment(event.target.value)}
+          />
+          <button
+            className="post__button"
+            type="submit"
+            disabled
+            color="warning"
+            onClick={handleComment}
+          >
+            Post
+          </button>
+        </div>
+      )}
     </div>
   );
 }
