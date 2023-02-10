@@ -3,29 +3,27 @@ import "./Form.css";
 import { Button, Input } from "@mui/material";
 import { auth } from "../firebase";
 import Modal from "@mui/material/Modal";
-
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { db } from "../firebase";
+import { signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 
 export default function LoginForm(props) {
-
-  // const currentUser = auth.currentUser;
-  // if (currentUser !== null){
-  //     console.log(currentUser.email);
-  // }
 
   const signIn = async (event) => {
     event.preventDefault();
     await signInWithEmailAndPassword(auth, props.email, props.password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
+      getDoc(doc(db, "userInfo", userCredential.user.uid)).then(docSnap => {
+        if (docSnap.exists()) {
+          updateProfile(userCredential.user, {displayName: docSnap.data().username})
+        } else {
+          console.log("No such document!");
+        }
+      })
     })
     .catch(
       (error) => alert(error.message)
     );
-    // props.setEmail("");
-    // props.setPassword("");
-    // props.closeSignIn();
   };
 
   return (
@@ -60,5 +58,3 @@ export default function LoginForm(props) {
     </div>
   );
 }
-
-// export {currentUser};

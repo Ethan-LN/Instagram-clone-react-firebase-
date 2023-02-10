@@ -45,7 +45,7 @@ function ImageUpload(props) {
             timestamp: serverTimestamp(),
             caption: caption,
             imageUrl: url,
-            username: props.username,
+            username: props.currentUser.displayName
           });
           setProgress(0);
           setCaption("");
