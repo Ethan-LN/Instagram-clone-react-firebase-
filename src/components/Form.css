@@ -32,3 +32,9 @@
 .imageUpload__progress {
   width: 70%;
 }
+
+.button__layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

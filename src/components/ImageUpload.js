@@ -1,7 +1,6 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { storage, db } from "../firebase";
-import "./ImageUpload.css";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
@@ -19,6 +18,10 @@ function ImageUpload(props) {
     }
   };
 
+  let imageUrl =
+    "https://firebasestorage.googleapis.com/v0/b/instagram-clone-42aea.appspot.com/o/images%2Finstagram-background.jpeg?alt=media&token=456a1124-7dbe-450d-a390-3a40fa4c4c24";
+
+  // upload function
   const handleUpload = () => {
     const storageRef = ref(storage, `images/${image.name + uuidv4()}`);
     const uploadTask = uploadBytesResumable(storageRef, image);
@@ -37,12 +40,16 @@ function ImageUpload(props) {
       () => {
         // complete function ...
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          imageUrl = url;
+
+        ///post function
           addDoc(collection(db, "posts"), {
             timestamp: serverTimestamp(),
             caption: caption,
             imageUrl: url,
             username: props.currentUser.displayName,
           });
+          
           setProgress(0);
           setCaption("");
           setImage(null);
@@ -56,6 +63,7 @@ function ImageUpload(props) {
       <Button onClick={props.openCreate}>{props.name}</Button>
       <Modal open={props.createPost} onClose={props.closeCreate}>
         <form className="form__layout">
+          <img className="post__image" src={imageUrl} alt={"upload"}/>
           <progress
             className="imageUpload__progress"
             value={progress}
@@ -75,9 +83,14 @@ function ImageUpload(props) {
               value={caption}
             />
             <input type="file" onChange={handleChange} />
-            <Button className="imageupload__button" onClick={handleUpload}>
-              Upload
-            </Button>
+            <div className="button__layout">
+              <Button className="imageupload__button" onClick={handleUpload}>
+                Upload
+              </Button>
+              <Button className="imageupload__button" onClick={handleUpload}>
+                Post
+              </Button>
+            </div>
           </div>
         </form>
       </Modal>
