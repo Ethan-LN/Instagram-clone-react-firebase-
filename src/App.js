@@ -130,13 +130,6 @@ function App() {
           />
         </div>
       </div>
-      {/* {user ? (
-        <ImageUpload currentUser={user} />
-      ) : (
-        <center>
-          <h3> Login to upload</h3>
-        </center>
-      )} */}
       <div className="app__footer">
         <center>
           <h6>©2023 Instagram clone (non-comercial) from Ethan-LN</h6>

@@ -54,29 +54,31 @@ function ImageUpload(props) {
   return (
     <div>
       <Button onClick={props.openCreate}>{props.name}</Button>
-      <Modal open={props.createPost} onClose={props.closeCreate} >
+      <Modal open={props.createPost} onClose={props.closeCreate}>
         <form className="form__layout">
           <progress
             className="imageUpload__progress"
             value={progress}
             max="100"
           />
-          <input
-            type="text"
-            placeholder="Enter a caption ..."
-            onChange={(event) => {
-              if (event.target.value === null) {
-                setCaption(null);
-              } else {
-                setCaption(event.target.value);
-              }
-            }}
-            value={caption}
-          />
-          <input type="file" onChange={handleChange} />
-          <Button className="imageupload__button" onClick={handleUpload}>
-            Upload
-          </Button>
+          <div className="textfield__layout">
+            <input
+              type="text"
+              placeholder="Enter a caption ..."
+              onChange={(event) => {
+                if (event.target.value === null) {
+                  setCaption(null);
+                } else {
+                  setCaption(event.target.value);
+                }
+              }}
+              value={caption}
+            />
+            <input type="file" onChange={handleChange} />
+            <Button className="imageupload__button" onClick={handleUpload}>
+              Upload
+            </Button>
+          </div>
         </form>
       </Modal>
     </div>
