@@ -3,13 +3,10 @@ import { useState } from "react";
 import { storage, db } from "../firebase";
 import "./ImageUpload.css";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import {
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from "firebase/storage";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { uuidv4 } from "@firebase/util";
-
+import Modal from "@mui/material/Modal";
+import "./Form.css";
 
 function ImageUpload(props) {
   const [image, setImage] = useState(null);
@@ -44,7 +41,7 @@ function ImageUpload(props) {
             timestamp: serverTimestamp(),
             caption: caption,
             imageUrl: url,
-            username: props.currentUser.displayName
+            username: props.currentUser.displayName,
           });
           setProgress(0);
           setCaption("");
@@ -55,24 +52,33 @@ function ImageUpload(props) {
   };
 
   return (
-    <div className="imageUpload">
-      <progress className="imageUpload__progress" value={progress} max="100" />
-      <input
-        type="text"
-        placeholder="Enter a caption ..."
-        onChange={(event) => {
-          if(event.target.value ===null){
-          setCaption(null)
-          } else {
-            setCaption(event.target.value);
-          }
-        }}
-        value={caption}
-      />
-      <input type="file" onChange={handleChange} />
-      <Button className="imageupload__button" onClick={handleUpload}>
-        Upload
-      </Button>
+    <div>
+      <Button onClick={props.openCreate}>{props.name}</Button>
+      <Modal open={props.createPost} onClose={props.closeCreate} >
+        <form className="form__layout">
+          <progress
+            className="imageUpload__progress"
+            value={progress}
+            max="100"
+          />
+          <input
+            type="text"
+            placeholder="Enter a caption ..."
+            onChange={(event) => {
+              if (event.target.value === null) {
+                setCaption(null);
+              } else {
+                setCaption(event.target.value);
+              }
+            }}
+            value={caption}
+          />
+          <input type="file" onChange={handleChange} />
+          <Button className="imageupload__button" onClick={handleUpload}>
+            Upload
+          </Button>
+        </form>
+      </Modal>
     </div>
   );
 }
