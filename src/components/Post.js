@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Post.css";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
-import { db } from "../firebase";
+import { db} from "../firebase";
 import {
   addDoc,
   collection,
@@ -12,9 +12,10 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-function Post({ postId, username, caption, imageUrl, alt }) {
+function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
+
 
   useEffect(
     () =>
@@ -24,9 +25,7 @@ function Post({ postId, username, caption, imageUrl, alt }) {
           orderBy("timestamp", "asc")
         ),
         (snapshot) => setComments(snapshot.docs)
-      ),
-    [db]
-  );
+      ),[postId]);
 
   const handleComment = async (e) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ function Post({ postId, username, caption, imageUrl, alt }) {
     setComment("");
     // add comment to firebase Post.Comments
     await addDoc(collection(db, "posts", postId, "comments"), {
-      username: username,
+      username: currentUser.displayName,
       text: commentToSend,
       timestamp: serverTimestamp(),
     });

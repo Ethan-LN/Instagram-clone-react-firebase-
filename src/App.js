@@ -99,6 +99,8 @@ function App() {
               caption={post.caption}
               imageUrl={post.imageUrl}
               alt={post.alt}
+              currentUser={user}
+              setCurrentUser={setUser}
             />
           ))}
         </div>

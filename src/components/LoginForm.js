@@ -3,12 +3,24 @@ import "./Form.css";
 import { Button, Input } from "@mui/material";
 import { auth } from "../firebase";
 import Modal from "@mui/material/Modal";
+
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginForm(props) {
+
+  // const currentUser = auth.currentUser;
+  // if (currentUser !== null){
+  //     console.log(currentUser.email);
+  // }
+
   const signIn = async (event) => {
     event.preventDefault();
-    await signInWithEmailAndPassword(auth, props.email, props.password).catch(
+    await signInWithEmailAndPassword(auth, props.email, props.password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch(
       (error) => alert(error.message)
     );
     // props.setEmail("");
@@ -48,3 +60,5 @@ export default function LoginForm(props) {
     </div>
   );
 }
+
+// export {currentUser};
