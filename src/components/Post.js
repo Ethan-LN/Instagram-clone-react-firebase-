@@ -144,7 +144,7 @@ function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
           <input
             className="post__comment"
             type="text"
-            placeholder="Add a comment..."
+            placeholder="Add a comments..."
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           />
@@ -162,17 +162,18 @@ function Post({ postId, username, caption, imageUrl, alt, currentUser }) {
         <div className="post__commentBox">
           <input
             disabled
-            className="post__comments"
+            className="post__comment"
             type="text"
-            placeholder="Login to add comment..."
+            placeholder="Login to add comments..."
             value={comment}
             onChange={(event) => setComment(event.target.value)}
           />
           <button
+            disabled
             className="post__button"
             type="submit"
-            disabled
             color="warning"
+            style= {{backgroundColor:"#fafafa"}}
             onClick={handleComment}
           >
             Post
