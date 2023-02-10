@@ -25,8 +25,8 @@ function App() {
 
   // useEffect -> Runs a piece of code based on a specific conditions
   useEffect(() => {
-    const q = query(collection(db, "posts"),orderBy("timestamp","desc"));
-    onSnapshot(q,(snapshot) => {
+    const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+    onSnapshot(q, (snapshot) => {
       setPosts(
         snapshot.docs.map((doc) => ({
           id: doc.id,
@@ -43,12 +43,14 @@ function App() {
         setUser(authUser);
       } else {
         setUser(null);
+        setEmail("");
+        setPassword("");
       }
     });
     return () => {
       unsubscribe();
     };
-  }, [user, username]);
+  }, [user,username]);
   return (
     <div className="app">
       <div className="app__header">
@@ -57,37 +59,38 @@ function App() {
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/1200px-Instagram_logo.svg.png"
           alt="instagram logo"
         />
-
         {user ? (
-          <Button onClick={() => auth.signOut()}>LOGOUT</Button>
-        ) : (
-          <div className="app__login">
-            <SignUpForm
-              name="Sign Up"
-              username={username}
-              setUsername={setUsername}
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              user={user}
-              setUser={setUser}
-              signUp={signUp}
-              openSignUp={openSignUp}
-              closeSignUp={closeSignUp}
-            />
-            <LoginForm
-              name="Sign In"
-              email={email}
-              setEmail={setEmail}
-              password={password}
-              setPassword={setPassword}
-              signIn={signIn}
-              openSignIn={openSignIn}
-              closeSignIn={closeSignIn}
-            />
-          </div>
-        )}
+        <Button onClick={() => auth.signOut()}>LOGOUT</Button>
+         ) : (
+        <div className="app__login">
+          <SignUpForm
+            name="Sign Up"
+            username={username}
+            setUsername={setUsername}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            currentUser={user}
+            setCurrentUser={setUser}
+            signUp={signUp}
+            openSignUp={openSignUp}
+            closeSignUp={closeSignUp}
+          />
+          <LoginForm
+            currentUser={user}
+            name="Sign In"
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            signIn={signIn}
+            openSignIn={openSignIn}
+            closeSignIn={closeSignIn}
+            setCurrentUser={setUser}
+          />
+        </div>
+      )} 
       </div>
       <div className="app__posts">
         <div className="app__postsLeft">
@@ -99,6 +102,8 @@ function App() {
               caption={post.caption}
               imageUrl={post.imageUrl}
               alt={post.alt}
+              currentUser={user}
+              setCurrentUser={setUser}
             />
           ))}
         </div>
@@ -114,7 +119,7 @@ function App() {
         </div>
       </div>
       {user ? (
-        <ImageUpload username={user.displayName} />
+        <ImageUpload currentUser={user} />
       ) : (
         <center>
           <h3> Login to upload</h3>
@@ -122,7 +127,7 @@ function App() {
       )}
       <div className="app__footer">
         <center>
-          <h6>©2023 Instagram clone from Ethan-LN</h6>
+          <h6>©2023 Instagram clone (non-comercial) from Ethan-LN</h6>
         </center>
       </div>
     </div>

@@ -4,18 +4,21 @@ import { Button, Input } from "@mui/material";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Modal from "@mui/material/Modal";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function SignUpForm(props) {
   const signUp = async (event) => {
     event.preventDefault();
     await createUserWithEmailAndPassword(auth, props.email, props.password)
       .then((authUser) => {
+        setDoc(doc(db, "userInfo", authUser.user.uid), {
+          timestamp: serverTimestamp(),
+          username: props.username,
+        });
         return (authUser.user.displayName = props.username);
       })
       .catch((error) => alert(error.message));
-      // props.setUsername("");
-      // props.setEmail("");
-      // props.setPassword("");
   };
 
   return (
