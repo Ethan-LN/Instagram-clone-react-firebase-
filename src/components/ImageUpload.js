@@ -32,7 +32,6 @@ function ImageUpload(props) {
         setProgress(
           Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
         );
-        setProgress(progress);
       },
       (error) => {
         console.log(error);
