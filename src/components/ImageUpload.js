@@ -10,16 +10,17 @@ import "./Form.css";
 function ImageUpload(props) {
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [caption, setCaption] = useState("");
+  const [caption, setCaption] = useState(null);
+  const [url, setUrl] = useState(null);
+  const [displayImage, setDisplayImage] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/instagram-clone-42aea.appspot.com/o/images%2Finstagram-background.jpeg?alt=media&token=456a1124-7dbe-450d-a390-3a40fa4c4c24"
+  );
 
   const handleChange = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
     }
   };
-
-  let imageUrl =
-    "https://firebasestorage.googleapis.com/v0/b/instagram-clone-42aea.appspot.com/o/images%2Finstagram-background.jpeg?alt=media&token=456a1124-7dbe-450d-a390-3a40fa4c4c24";
 
   // upload function
   const handleUpload = () => {
@@ -40,22 +41,35 @@ function ImageUpload(props) {
       () => {
         // complete function ...
         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          imageUrl = url;
-
-        ///post function
-          addDoc(collection(db, "posts"), {
-            timestamp: serverTimestamp(),
-            caption: caption,
-            imageUrl: url,
-            username: props.currentUser.displayName,
-          });
-          
-          setProgress(0);
-          setCaption("");
-          setImage(null);
+          setDisplayImage(url);
+          setUrl(url);
         });
       }
     );
+  };
+
+  const postUpload = () => {
+    if (url !== null && caption !== null) {
+      ///post function
+      addDoc(collection(db, "posts"), {
+        timestamp: serverTimestamp(),
+        caption: caption,
+        imageUrl: url,
+        username: props.currentUser.displayName,
+      });
+
+      setProgress(0);
+      setCaption("");
+      setImage(null);
+      setUrl(null);
+      setDisplayImage(
+        "https://firebasestorage.googleapis.com/v0/b/instagram-clone-42aea.appspot.com/o/images%2Finstagram-background.jpeg?alt=media&token=456a1124-7dbe-450d-a390-3a40fa4c4c24"
+      );
+    } else {
+      alert(
+        "You didn't complete your post. Please check if you click 'UPLOAD' 📷 and write a short caption 📝"
+      );
+    }
   };
 
   return (
@@ -63,7 +77,7 @@ function ImageUpload(props) {
       <Button onClick={props.openCreate}>{props.name}</Button>
       <Modal open={props.createPost} onClose={props.closeCreate}>
         <form className="form__layout">
-          <img className="post__image" src={imageUrl} alt={"upload"}/>
+          <img className="post__image" src={displayImage} alt={"upload"} />
           <progress
             className="imageUpload__progress"
             value={progress}
@@ -87,7 +101,7 @@ function ImageUpload(props) {
               <Button className="imageupload__button" onClick={handleUpload}>
                 Upload
               </Button>
-              <Button className="imageupload__button" onClick={handleUpload}>
+              <Button className="imageupload__button" onClick={postUpload}>
                 Post
               </Button>
             </div>
