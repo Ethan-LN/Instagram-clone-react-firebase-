@@ -25,9 +25,10 @@
   object-fit: contain;
 }
 
-.app__login {
+.app__loginOut {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .app__posts {

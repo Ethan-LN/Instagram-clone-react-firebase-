@@ -28,7 +28,7 @@ export default function LoginForm(props) {
 
   return (
     <div>
-      <Button onClick={props.openSignIn}>{props.name} </Button>
+      <Button onClick={props.openSignIn}>{props.name}</Button>
       <Modal open={props.signIn} onClose={props.closeSignIn}>
         <form className="form__layout">
           <img
